@@ -151,9 +151,12 @@ class base {
 			if(!file_exists($cachepath)) {
 				$this->load('cache');
 				$_ENV['cache']->updatedata($cachefile);
-			} else {
+			}
+			if(file_exists($cachepath)) {
 				include_once $cachepath;
-				$this->_CACHE[$cachefile] = $_CACHE[$cachefile];
+				$this->_CACHE[$cachefile] = isset($_CACHE[$cachefile]) && is_array($_CACHE[$cachefile]) ? $_CACHE[$cachefile] : array();
+			} else {
+				$this->_CACHE[$cachefile] = array();
 			}
 		}
 		return $this->_CACHE[$cachefile];

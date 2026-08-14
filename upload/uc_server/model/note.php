@@ -30,7 +30,8 @@ class notemodel {
 	function notemodel(&$base) {
 		$this->base = $base;
 		$this->db = $base->db;
-		$this->apps = $this->base->cache('apps');
+		$apps = $this->base->cache('apps');
+		$this->apps = is_array($apps) ? $apps : array();
 		$this->operations = array(
 			'test'=>array('', 'action=test'),
 			'deleteuser'=>array('', 'action=deleteuser'),
@@ -133,6 +134,9 @@ class notemodel {
 	function sendone($appid, $noteid = 0, $note = '') {
 		require_once UC_ROOT.'./lib/xml.class.php';
 		$return = FALSE;
+		if(!isset($this->apps[$appid]) || !is_array($this->apps[$appid])) {
+			return $return;
+		}
 		$app = $this->apps[$appid];
 		if($noteid) {
 			$note = $this->_get_note_by_id($noteid);
@@ -175,6 +179,7 @@ class notemodel {
 
 	function _close_note($note, $apps, $returnsucceed, $appid) {
 		$note['app'.$appid] = $returnsucceed ? 1 : $note['app'.$appid] - 1;
+		$apps = is_array($apps) ? $apps : array();
 		$appcount = count($apps);
 		foreach($apps as $key => $app) {
 			$appstatus = $note['app'.$app['appid']];
