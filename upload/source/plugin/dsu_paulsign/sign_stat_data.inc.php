@@ -15,19 +15,16 @@ $stats = C::t('#dsu_paulsign#dsu_paulsignset')->fetch('1');
 $today = dgmdate(TIMESTAMP, 'Ymd');
 $paulsign[$today] = $stats['todayq'];
 foreach ($day_array as $day) {
-  $paulsign_display[] = intval($paulsign[$day]);
-  $login_display[] = intval($login[$day]);
+  $paulsign_display[] = isset($paulsign[$day]) ? intval($paulsign[$day]) : 0;
+  $login_display[] = isset($login[$day]) ? intval($login[$day]) : 0;
 }
-$max = intval(max(max($paulsign_display), max($login_display)) * 1.2);
-?>
-&title=PaulSign+Statistic,{font-size:26px;}&
-&x_axis_steps=1&
-&y_ticks=5,10,5&
-&line=1,0x1CA9F4,Login,12,5&
-&line_2=2,0xF2A63E,Sign,12,5&
-&values=<?= implode(',', $login_display) ?>&
-&values_2=<?= implode(',', $paulsign_display) ?>&
-&x_labels=<?= implode(',', $day_display) ?>&
-&y_min=0&
-&y_max=<?= $max ?>&
-&tool_tip=Num+%3A+%23val%23&
+$max = max(1, (int)ceil(max(max($paulsign_display), max($login_display)) * 1.2));
+header('Content-Type: application/json; charset=' . CHARSET);
+header('Cache-Control: no-store, private');
+echo json_encode(array(
+  'labels' => array_values($day_display),
+  'login' => $login_display,
+  'sign' => $paulsign_display,
+  'max' => $max,
+), JSON_UNESCAPED_UNICODE);
+exit;
