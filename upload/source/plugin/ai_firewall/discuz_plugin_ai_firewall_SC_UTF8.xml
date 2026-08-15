@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[X3.5]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[0]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[AI 防火墙]]></item>
+			<item id="identifier"><![CDATA[ai_firewall]]></item>
+			<item id="description"><![CDATA[使用 OpenAI Chat Completions 兼容接口审核新主题与回复，风险内容进入 Discuz 原生人工审核队列。]]></item>
+			<item id="datatables"><![CDATA[ai_firewall_config,ai_firewall_log]]></item>
+			<item id="directory"><![CDATA[ai_firewall/]]></item>
+			<item id="copyright"><![CDATA[AI Firewall]]></item>
+			<item id="version"><![CDATA[1.0.0]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[ai_firewall]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[11]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+				</item>
+				<item id="1">
+					<item id="name"><![CDATA[ai_firewall]]></item>
+					<item id="menu"><![CDATA[]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[28]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+				</item>
+				<item id="2">
+					<item id="name"><![CDATA[config]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[配置]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[1]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+				</item>
+				<item id="3">
+					<item id="name"><![CDATA[logs]]></item>
+					<item id="param"><![CDATA[]]></item>
+					<item id="menu"><![CDATA[审核日志]]></item>
+					<item id="url"><![CDATA[]]></item>
+					<item id="type"><![CDATA[3]]></item>
+					<item id="adminid"><![CDATA[1]]></item>
+					<item id="displayorder"><![CDATA[1]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[X3.5]]></item>
+		<item id="intro"><![CDATA[AI 明确通过时沿用 Discuz 正常发帖流程；未通过或接口故障时按配置进入原生人工审核。]]></item>
+		<item id="installfile"><![CDATA[install.php]]></item>
+		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
+		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
+		<item id="language">
+			<item id="scriptlang">
+				<item id="config_invalid"><![CDATA[配置无效：<br />{errors}]]></item>
+				<item id="config_saved"><![CDATA[AI 防火墙设置已保存。]]></item>
+				<item id="test_failed"><![CDATA[接口连接测试失败。错误码：{error}，HTTP：{http}，耗时：{latency} ms。]]></item>
+				<item id="test_invalid_response"><![CDATA[接口可以连接，但模型未返回符合约定的审核 JSON。HTTP：{http}，耗时：{latency} ms。]]></item>
+				<item id="test_succeed"><![CDATA[接口连接及响应格式测试成功。决策：{decision}，HTTP：{http}，耗时：{latency} ms。]]></item>
+				<item id="logs_cleaned"><![CDATA[超过配置保留期限的审核日志已清理。]]></item>
+				<item id="logs_cleared"><![CDATA[AI 审核日志已全部清空。]]></item>
+			</item>
+		</item>
+	</item>
+</root>
