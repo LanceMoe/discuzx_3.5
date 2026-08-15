@@ -324,6 +324,7 @@ class plugin_dsu_paulsign_forum extends plugin_dsu_paulsign
         $mrcs = array();
         $i = 1;
         foreach (C::t('#dsu_paulsign#dsu_paulsign')->getsignlist('q.time', 'ASC', '0', '', '', $tdtime, $pnum) as $mrc) {
+          $mrc['username_html'] = dhtmlspecialchars($mrc['username']);
           $mrc['time'] = dgmdate($mrc['time'], 'Y-m-d H:i');
           if ($mrc['days'] >= '1500') {
             $mrc['level'] = "[LV.Master]{$lvmastername}";
@@ -348,6 +349,7 @@ class plugin_dsu_paulsign_forum extends plugin_dsu_paulsign
           } elseif ($mrc['days'] >= '1') {
             $mrc['level'] = "[LV.1]{$lv1name}";
           }
+          $mrc['level_html'] = dhtmlspecialchars($mrc['level']);
           $mrcs[$i++] = $mrc;
         }
         include template('dsu_paulsign:sign_list');

@@ -26,15 +26,15 @@
                     <td><b>{$lang[classn_10]}[{$_G['setting']['extcredits'][$nrcredit]['title']}]</b></td>
                 </tr>
                 </thead>
-				<!--{loop $mrcs $key $mrc}-->
-					<tr>
-						<td>{$key}</td>
-						<td><a href="home.php?mod=space&uid={$mrc[uid]}" target="_blank"><!--{echo dhtmlspecialchars($mrc['username'])}--></a></td>
-						<td><!--{echo dhtmlspecialchars($mrc['level'])}--></td>
-						<td>{$mrc[time]}</td>
-						<td><span>{$mrc[lastreward]} {$_G['setting']['extcredits'][$nrcredit]['unit']}</span></td>
-					</tr>
-				<!--{/loop}-->
+                <!--{loop $mrcs $key $mrc}-->
+                    <tr>
+                        <td>{$key}</td>
+                        <td><a href="home.php?mod=space&uid={$mrc[uid]}" target="_blank">{$mrc[username_html]}</a></td>
+                        <td>{$mrc[level_html]}</td>
+                        <td>{$mrc[time]}</td>
+                        <td><span>{$mrc[lastreward]} {$_G['setting']['extcredits'][$nrcredit]['unit']}</span></td>
+                    </tr>
+                <!--{/loop}-->
             </table>
         </div>
     <!--{/if}-->
