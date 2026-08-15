@@ -5,10 +5,10 @@ if(!defined('IN_DISCUZ')) {
 }
 
 require_once DISCUZ_ROOT.'./source/plugin/ai_firewall/lib/config.php';
-require_once DISCUZ_ROOT.'./source/plugin/ai_firewall/lib/moderator.php';
+require_once DISCUZ_ROOT.'./source/plugin/ai_firewall/lib/queue.php';
 
 class plugin_ai_firewall {
-	private static $pendingRequestId = '';
+	private static $eligibleContentType = '';
 
 	public function post() {
 		global $_G;
@@ -29,26 +29,12 @@ class plugin_ai_firewall {
 			return;
 		}
 
-		$subject = isset($_GET['subject']) ? $_GET['subject'] : '';
-		$message = isset($_GET['message']) ? $_GET['message'] : '';
-		$lockIdentity = !empty($_G['uid']) ? 'uid:'.intval($_G['uid']) : 'ip:'.(isset($_G['clientip']) ? $_G['clientip'] : 'unknown');
-		$lockSource = $lockIdentity."\n".intval($_G['fid'])."\n".$contentType."\n".(string)$subject."\n".(string)$message;
-		$lockName = 'ai_fw_'.substr(hash('sha256', $lockSource), 0, 26);
-		if(discuz_process::islocked($lockName, intval($config['timeout']) + 5, 1)) {
-			$this->force_native_moderation($contentType);
-			return;
-		}
-		$moderator = new ai_firewall_moderator($config);
-		$result = $moderator->review($contentType, $subject, $message, $_G['forum']);
-		self::$pendingRequestId = isset($result['request_id']) ? $result['request_id'] : '';
-		if($result['decision'] === 'review') {
-			$this->force_native_moderation($contentType);
-		}
+		self::$eligibleContentType = $contentType;
 	}
 
 	public function post_message($param) {
 		global $_G;
-		if(self::$pendingRequestId === '' || empty($param['param']) || !is_array($param['param'])) {
+		if(self::$eligibleContentType === '' || empty($param['param']) || !is_array($param['param'])) {
 			return;
 		}
 		list($message, $url, $values) = array_pad($param['param'], 3, array());
@@ -64,10 +50,14 @@ class plugin_ai_firewall {
 		if(!$pid && preg_match('/(?:[?&]|&amp;)pid=(\d+)/', (string)$url, $match)) {
 			$pid = intval($match[1]);
 		}
-		if($tid > 0) {
-			C::t('#ai_firewall#ai_firewall_log')->update_post_ids(self::$pendingRequestId, intval($_G['uid']), $tid, $pid);
+		if($tid > 0 && $pid === 0 && self::$eligibleContentType === 'thread') {
+			$firstPost = C::t('forum_post')->fetch_threadpost_by_tid_invisible($tid);
+			$pid = $firstPost ? intval($firstPost['pid']) : 0;
 		}
-		self::$pendingRequestId = '';
+		if(ai_firewall_queue::enqueue($_G['uid'], $_G['fid'], $tid, $pid, self::$eligibleContentType)) {
+			register_shutdown_function(array('ai_firewall_queue', 'process_after_response'));
+		}
+		self::$eligibleContentType = '';
 	}
 
 	private function is_submission() {
@@ -93,15 +83,6 @@ class plugin_ai_firewall {
 		return strncasecmp($_SERVER['HTTP_REFERER'], 'http://wsq.discuz.com/', 22) === 0 || $refererHost === $currentHost;
 	}
 
-	private function force_native_moderation($contentType) {
-		global $_G;
-		if(intval($_G['forum']['status']) === 3) {
-			$_G['group']['allowgroupdirectpost'] = $contentType === 'thread' ? 1 : 2;
-			return;
-		}
-		$_G['forum']['modnewposts'] = $contentType === 'thread' ? 1 : 2;
-		$_G['group']['allowdirectpost'] = $contentType === 'thread' ? 1 : 2;
-	}
 }
 
 class plugin_ai_firewall_forum extends plugin_ai_firewall {

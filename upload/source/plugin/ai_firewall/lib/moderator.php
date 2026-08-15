@@ -15,7 +15,7 @@ class ai_firewall_moderator {
 		$this->config = $config;
 	}
 
-	public function review($contentType, $subject, $message, $forum) {
+	public function review($contentType, $subject, $message, $forum, $uid = null) {
 		global $_G;
 		$source = (string)$subject."\n".(string)$message;
 		$contentHash = hash('sha256', $source);
@@ -59,7 +59,7 @@ class ai_firewall_moderator {
 		if($shouldLog) {
 			ai_firewall_logger::write(array(
 				'request_id' => $requestId,
-				'uid' => $_G['uid'],
+				'uid' => $uid === null ? intval($_G['uid']) : intval($uid),
 				'fid' => $forum['fid'],
 				'content_type' => $contentType,
 				'decision' => $decision,

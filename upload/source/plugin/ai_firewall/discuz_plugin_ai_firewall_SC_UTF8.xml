@@ -8,11 +8,11 @@
 			<item id="adminid"><![CDATA[1]]></item>
 			<item id="name"><![CDATA[AI 防水墙]]></item>
 			<item id="identifier"><![CDATA[ai_firewall]]></item>
-			<item id="description"><![CDATA[使用 OpenAI Chat Completions 兼容接口审核新主题与回复，防范恶意灌水等风险内容，并将其送入 Discuz 原生人工审核队列。]]></item>
-			<item id="datatables"><![CDATA[ai_firewall_config,ai_firewall_log]]></item>
+			<item id="description"><![CDATA[发帖后异步调用 OpenAI Chat Completions 兼容接口审核新主题与回复；风险内容会被移入 Discuz 原生人工审核队列。]]></item>
+			<item id="datatables"><![CDATA[ai_firewall_config,ai_firewall_log,ai_firewall_queue]]></item>
 			<item id="directory"><![CDATA[ai_firewall/]]></item>
 			<item id="copyright"><![CDATA[iYa.App]]></item>
-			<item id="version"><![CDATA[1.3.0]]></item>
+			<item id="version"><![CDATA[1.4.0]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[ai_firewall]]></item>
@@ -51,12 +51,13 @@
 			</item>
 		</item>
 		<item id="version"><![CDATA[X3.5]]></item>
-		<item id="intro"><![CDATA[AI 明确通过时沿用 Discuz 正常发帖流程；未通过或接口故障时按配置进入原生人工审核。]]></item>
+		<item id="intro"><![CDATA[先完成 Discuz 正常发帖，再异步执行 AI 审查；AI 通过时保持原状态，未通过或按策略需保守处理时移入原生人工审核。]]></item>
 		<item id="installfile"><![CDATA[install.php]]></item>
 		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
 		<item id="upgradefile"><![CDATA[upgrade.php]]></item>
 		<item id="language">
 			<item id="scriptlang">
+				<item id="ai_firewall_async_review"><![CDATA[AI 防水墙异步审查]]></item>
 				<item id="config_invalid"><![CDATA[配置无效：<br />{errors}]]></item>
 				<item id="config_saved"><![CDATA[AI 防水墙设置已保存。]]></item>
 				<item id="test_failed"><![CDATA[接口连接测试失败。错误码：{error}，HTTP：{http}，耗时：{latency} ms。]]></item>

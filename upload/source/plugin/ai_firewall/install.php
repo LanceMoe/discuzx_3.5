@@ -35,6 +35,27 @@ CREATE TABLE IF NOT EXISTS cdb_ai_firewall_log (
   KEY `decision_created` (`decision`,`created_at`),
   KEY `uid_created` (`uid`,`created_at`)
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS cdb_ai_firewall_queue (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `fid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `tid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0',
+  `content_type` varchar(16) NOT NULL DEFAULT '',
+  `status` varchar(16) NOT NULL DEFAULT 'pending',
+  `attempts` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `result` varchar(16) NOT NULL DEFAULT '',
+  `error_code` varchar(64) NOT NULL DEFAULT '',
+  `claim_token` char(32) NOT NULL DEFAULT '',
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0',
+  `claimed_at` int(10) unsigned NOT NULL DEFAULT '0',
+  `processed_at` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `post_id` (`tid`,`pid`),
+  KEY `status_created` (`status`,`created_at`),
+  KEY `processed_at` (`processed_at`)
+) ENGINE=InnoDB;
 EOF;
 
 runquery($sql);

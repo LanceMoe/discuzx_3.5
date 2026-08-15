@@ -6,6 +6,7 @@ if(!defined('IN_DISCUZ')) {
 
 $sql = <<<EOF
 DROP TABLE IF EXISTS cdb_ai_firewall_log;
+DROP TABLE IF EXISTS cdb_ai_firewall_queue;
 DROP TABLE IF EXISTS cdb_ai_firewall_config;
 EOF;
 
