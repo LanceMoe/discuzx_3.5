@@ -36,7 +36,7 @@ if (!$var['ifopen'] && $_G['adminid'] != 1) {
 if ($var['plopen'] && $plgroups) {
   $mccs = C::t('common_usergroup')->fetch_all($plgroups2);
 }
-if ($_GET['operation'] == 'zong' || $_GET['operation'] == 'month' || $_GET['operation'] == '' || ($_GET['operation'] == 'zdyhz' && $var['plopen']) || ($_GET['operation'] == 'rewardlist' && $var['rewardlistopen']) && !defined('IN_MOBILE')) {
+if ($_GET['operation'] == 'zong' || $_GET['operation'] == 'month' || $_GET['operation'] == '' || ($_GET['operation'] == 'zdyhz' && $var['plopen']) || ($_GET['operation'] == 'rewardlist' && $var['rewardlistopen'])) {
   if ($_GET['operation'] == 'month') {
     $num = C::t('#dsu_paulsign#dsu_paulsign')->getcount('mdays', '0', 'notin');
     $page = max(1, intval($_GET['page']));
@@ -92,6 +92,7 @@ if ($_GET['operation'] == 'zong' || $_GET['operation'] == 'month' || $_GET['oper
   foreach (C::t('#dsu_paulsign#dsu_paulsign')->getsignlist($list_type, $list_turn, $start_limit, $list_ifgroup, $list_gids, $list_tdtime) as $mrc) {
     $mrc['if'] = $mrc['time'] < $tdtime ? "<span class=gray>" . $lang['tdno'] . "</span>" : "<font color=green>" . $lang['tdyq'] . "</font>";
     $mrc['time'] = dgmdate($mrc['time'], 'Y-m-d H:i');
+    $mrc['level'] = '';
     if (!isset($emots[$mrc['qdxq']])) {
       $mrc['qdxq'] = '';
     }
