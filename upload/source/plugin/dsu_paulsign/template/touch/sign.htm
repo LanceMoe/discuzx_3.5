@@ -1,142 +1,170 @@
-<!--{subtemplate mobile/common/header}-->
+<!--{template common/header}-->
 <div class="header cl">
-  <div class="mz"><a href="forum.php?mobile=yes" aria-label="{lang homepage}"><i class="dm-c-left"></i></a></div>
+  <div class="mz"><a href="javascript:history.back();" aria-label="{lang goback}"><i class="dm-c-left"></i></a></div>
   <h2>{lang dsu_paulsign:name}</h2>
-  <div class="my"></div>
+  <div class="my"><a href="index.php" aria-label="{lang homepage}"><i class="dm-house"></i></a></div>
 </div>
 
 <style type="text/css">
-  .ps-touch { padding: 10px; background: #f5f6f7; }
-  .ps-touch-section { margin: 0 0 10px; background: #fff; border: 1px solid #e4e7ea; }
-  .ps-touch-heading { margin: 0; padding: 12px 14px; border-bottom: 1px solid #edf0f2; color: #222; font-size: 15px; font-weight: 600; }
+  .ps-touch { padding: 10px 15px; color: var(--dz-FC-333); }
+  .ps-touch * { box-sizing: border-box; }
+  .ps-touch-card { margin-bottom: 10px; background: var(--dz-BG-0); border: 1px solid var(--dz-BOR-ed); border-radius: 6px; overflow: hidden; }
+  .ps-touch-title { display: flex; align-items: center; justify-content: space-between; min-height: 44px; margin: 0; padding: 0 14px; border-bottom: 1px solid var(--dz-BOR-ed); font-size: 15px; font-weight: 600; }
+  .ps-touch-title small { color: var(--dz-FC-aaa); font-size: 12px; font-weight: 400; }
   .ps-touch-body { padding: 14px; }
-  .ps-touch-note { margin: 0; color: #666; font-size: 13px; line-height: 1.6; }
-  .ps-touch-warning { margin: 0 0 12px; color: #c53b2c; font-size: 13px; line-height: 1.5; }
-  .ps-touch-field { display: block; margin: 0 0 12px; color: #333; font-size: 13px; }
-  .ps-touch-field strong { display: block; margin: 0 0 6px; }
-  .ps-touch-field select, .ps-touch-field input[type="text"] { box-sizing: border-box; width: 100%; min-height: 38px; padding: 8px; border: 1px solid #ccd2d7; border-radius: 3px; background: #fff; color: #222; }
-  .ps-touch-modes { margin: 0 0 12px; color: #444; font-size: 13px; }
-  .ps-touch-modes label { display: inline-flex; align-items: center; margin: 0 12px 8px 0; }
-  .ps-touch-modes input { margin-right: 4px; }
-  .ps-touch-submit { width: 100%; min-height: 42px; border: 0; border-radius: 3px; background: #1689d4; color: #fff; font-size: 15px; font-weight: 600; }
-  .ps-touch-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid #e4e7ea; background: #e4e7ea; }
-  .ps-touch-summary div { min-height: 58px; padding: 10px; background: #fff; }
-  .ps-touch-summary span { display: block; margin-bottom: 4px; color: #77828a; font-size: 12px; }
-  .ps-touch-summary strong { color: #222; font-size: 16px; font-weight: 600; }
-  .ps-touch-tabs { display: flex; overflow-x: auto; margin: 0; padding: 0; list-style: none; border-bottom: 1px solid #e4e7ea; background: #fff; }
+  .ps-touch-note { margin: 0; color: var(--dz-FC-999); font-size: 13px; line-height: 1.7; }
+  .ps-touch-note + .ps-touch-note { margin-top: 6px; }
+  .ps-touch-warning { margin: 0 0 12px; padding: 9px 10px; color: var(--dz-BG-2); background: var(--dz-BG-body); border-radius: 4px; font-size: 13px; line-height: 1.5; }
+  .ps-touch-label { display: block; margin: 0 0 7px; color: var(--dz-FC-666); font-size: 13px; }
+  .ps-touch-emots { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  .ps-touch-emot { position: relative; min-width: 0; }
+  .ps-touch-emot input { position: absolute; opacity: 0; pointer-events: none; }
+  .ps-touch-emot span { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 64px; padding: 6px 2px; border: 1px solid var(--dz-BOR-ed); border-radius: 5px; color: var(--dz-FC-666); font-size: 11px; text-align: center; }
+  .ps-touch-emot img { width: 24px; height: 24px; margin-bottom: 5px; object-fit: contain; }
+  .ps-touch-emot input:checked + span { color: var(--dz-FC-color); border-color: var(--dz-BG-color); background: var(--dz-BG-body); box-shadow: inset 0 0 0 1px var(--dz-BG-color); }
+  .ps-touch-modes { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .ps-touch-mode { position: relative; }
+  .ps-touch-mode input { position: absolute; opacity: 0; }
+  .ps-touch-mode span { display: block; padding: 7px 12px; color: var(--dz-FC-666); border: 1px solid var(--dz-BOR-ed); border-radius: 18px; font-size: 13px; }
+  .ps-touch-mode input:checked + span { color: var(--dz-FC-fff); border-color: var(--dz-BG-color); background: var(--dz-BG-color); }
+  .ps-touch-field { margin-bottom: 12px; }
+  .ps-touch-field select, .ps-touch-field textarea { display: block; width: 100%; border: 1px solid var(--dz-BOR-ed); border-radius: 5px; background: var(--dz-BG-0); color: var(--dz-FC-333); font-size: 14px; }
+  .ps-touch-field select { height: 40px; padding: 0 9px; }
+  .ps-touch-field textarea { min-height: 76px; padding: 9px; line-height: 1.5; resize: vertical; }
+  .ps-touch-help { display: block; margin-top: 5px; color: var(--dz-FC-aaa); font-size: 11px; }
+  .ps-touch-submit { display: block; width: 100%; height: 42px; border: 0; border-radius: 5px; background: var(--dz-BG-color); color: var(--dz-FC-fff); font-size: 16px; }
+  .ps-touch-done { text-align: center; padding: 5px 0; }
+  .ps-touch-done i { display: block; width: 48px; height: 48px; margin: 0 auto 10px; border-radius: 50%; background: var(--dz-BG-color); color: var(--dz-FC-fff); font-size: 26px; font-style: normal; line-height: 48px; }
+  .ps-touch-done strong { display: block; margin-bottom: 5px; font-size: 16px; }
+  .ps-touch-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: -1px; }
+  .ps-touch-summary div { min-height: 72px; padding: 12px; border: solid var(--dz-BOR-ed); border-width: 1px 0 0 1px; }
+  .ps-touch-summary span { display: block; margin-bottom: 6px; color: var(--dz-FC-aaa); font-size: 12px; }
+  .ps-touch-summary strong { color: var(--dz-FC-333); font-size: 17px; font-weight: 500; word-break: break-all; }
+  .ps-touch-level { padding: 11px 14px; border-top: 1px solid var(--dz-BOR-ed); color: var(--dz-FC-666); font-size: 12px; line-height: 1.6; }
+  .ps-touch-tabs { display: flex; overflow-x: auto; margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--dz-BOR-ed); scrollbar-width: none; }
+  .ps-touch-tabs::-webkit-scrollbar { display: none; }
   .ps-touch-tabs li { flex: 0 0 auto; }
-  .ps-touch-tabs a { display: block; padding: 12px 13px; color: #555; font-size: 13px; white-space: nowrap; }
-  .ps-touch-tabs .active a { border-bottom: 2px solid #1689d4; color: #1689d4; font-weight: 600; }
-  .ps-touch-group-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
-  .ps-touch-group-links a { padding: 6px 9px; border: 1px solid #dce2e6; border-radius: 3px; color: #4b5963; font-size: 12px; }
-  .ps-touch-group-links a.active { border-color: #1689d4; background: #eef8fe; color: #1689d4; }
+  .ps-touch-tabs a { display: block; padding: 12px 13px 10px; color: var(--dz-FC-666); font-size: 13px; white-space: nowrap; border-bottom: 2px solid transparent; }
+  .ps-touch-tabs .active a { color: var(--dz-FC-color); border-bottom-color: var(--dz-BG-color); font-weight: 600; }
+  .ps-touch-groups { display: flex; overflow-x: auto; gap: 7px; margin: 0 0 12px; padding-bottom: 2px; }
+  .ps-touch-groups a { flex: 0 0 auto; padding: 6px 10px; border: 1px solid var(--dz-BOR-ed); border-radius: 15px; color: var(--dz-FC-666); font-size: 12px; }
+  .ps-touch-groups a.active { color: var(--dz-FC-color); border-color: var(--dz-BG-color); }
   .ps-touch-rank { margin: 0; padding: 0; list-style: none; }
-  .ps-touch-rank li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 9px; align-items: center; min-height: 54px; border-bottom: 1px solid #edf0f2; }
+  .ps-touch-rank li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 9px; align-items: center; min-height: 70px; border-bottom: 1px solid var(--dz-BOR-ed); }
   .ps-touch-rank li:last-child { border-bottom: 0; }
-  .ps-touch-rank-index { color: #9099a1; font-size: 13px; text-align: center; }
+  .ps-touch-rank-index { width: 26px; height: 26px; border-radius: 50%; background: var(--dz-BG-body); color: var(--dz-FC-999); font-size: 12px; line-height: 26px; text-align: center; }
+  .ps-touch-rank li:nth-child(-n+3) .ps-touch-rank-index { background: var(--dz-BG-color); color: var(--dz-FC-fff); }
   .ps-touch-rank-main { min-width: 0; }
-  .ps-touch-rank-main a { display: block; overflow: hidden; color: #222; font-size: 14px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
-  .ps-touch-rank-main p { overflow: hidden; margin: 3px 0 0; color: #7a848c; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
-  .ps-touch-rank-value { color: #1689d4; font-size: 13px; text-align: right; }
-  .ps-touch-rank-value span { display: block; margin-top: 3px; color: #8a939a; font-size: 11px; }
+  .ps-touch-rank-name { display: flex; align-items: center; min-width: 0; }
+  .ps-touch-rank-name a { overflow: hidden; color: var(--dz-FC-333); font-size: 14px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+  .ps-touch-rank-name img { flex: 0 0 auto; width: 20px; height: 20px; margin-left: 6px; object-fit: contain; }
+  .ps-touch-rank-main p { overflow: hidden; margin: 4px 0 0; color: var(--dz-FC-aaa); font-size: 11px; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }
+  .ps-touch-rank-say { color: var(--dz-FC-666) !important; }
+  .ps-touch-rank-value { min-width: 54px; color: var(--dz-FC-color); font-size: 17px; text-align: right; }
+  .ps-touch-rank-value small { display: block; margin-top: 3px; color: var(--dz-FC-aaa); font-size: 10px; }
+  .ps-touch-pages { padding-top: 13px; text-align: center; }
+  .ps-touch-pages .pg a, .ps-touch-pages .pg strong, .ps-touch-pages .pg label { display: inline-block; float: none; }
   .ps-touch-stats { margin: 0; padding: 0; list-style: none; }
-  .ps-touch-stats li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #edf0f2; color: #555; font-size: 13px; }
+  .ps-touch-stats li { display: flex; align-items: center; justify-content: space-between; min-height: 39px; border-bottom: 1px solid var(--dz-BOR-ed); color: var(--dz-FC-666); font-size: 13px; }
   .ps-touch-stats li:last-child { border-bottom: 0; }
-  .ps-touch-stats b { color: #222; }
-  .ps-touch-pages { padding: 12px 0 0; text-align: center; }
+  .ps-touch-stats b { color: var(--dz-FC-333); font-weight: 500; }
+  .ps-touch-levels { margin-top: 10px; }
+  .ps-touch-levels summary { cursor: pointer; color: var(--dz-FC-color); font-size: 13px; }
+  .ps-touch-levels table { width: 100%; margin-top: 9px; border-collapse: collapse; font-size: 12px; }
+  .ps-touch-levels td { padding: 6px 3px; border-top: 1px solid var(--dz-BOR-ed); }
+  .ps-touch-levels td:last-child { color: var(--dz-FC-aaa); text-align: right; }
+  @media (max-width: 360px) { .ps-touch-emots { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>
 
 <div class="ps-touch">
-  <div class="ps-touch-section">
-    <h3 class="ps-touch-heading">{lang dsu_paulsign:name}</h3>
+  <section class="ps-touch-card">
+    <h3 class="ps-touch-title"><span>{lang dsu_paulsign:wap_01}</span></h3>
     <div class="ps-touch-body">
       <!--{if $qiandaodb['time'] < $tdtime && (!$var['timeopen'] || ($htime >= $var['stime'] && $htime <= $var['ftime']))}-->
-        <form method="post" action="plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=0&inajax=0&mobile=yes">
-          <!--{if $var['ftopen']}--><p class="ps-touch-warning">[{lang dsu_paulsign:mb_xz1}]</p><!--{/if}-->
+        <form method="post" action="plugin.php?id=dsu_paulsign:sign&operation=qiandao&infloat=0&inajax=0&mobile=2">
+          <!--{if $var['ftopen']}--><p class="ps-touch-warning">{lang dsu_paulsign:mb_xz1}</p><!--{/if}-->
           <input type="hidden" name="formhash" value="{FORMHASH}" />
-          <label class="ps-touch-field">
-            <strong>{lang dsu_paulsign:wap_02}</strong>
-            <select name="qdxq">
-              <!--{loop $emots $key $value}-->
-                <option value="{$key}"><!--{echo dhtmlspecialchars($value['name'])}--></option>
-              <!--{/loop}-->
-            </select>
-          </label>
+          <span class="ps-touch-label">{lang dsu_paulsign:wap_02}</span>
+          <div class="ps-touch-emots">
+            <!--{loop $emots $key $value}-->
+              <label class="ps-touch-emot">
+                <input type="radio" name="qdxq" value="{$key}" required="required" />
+                <span><img src="source/plugin/dsu_paulsign/img/emot/{$key}.gif" alt="" /><!--{echo dhtmlspecialchars($value['name'])}--></span>
+              </label>
+            <!--{/loop}-->
+          </div>
           <!--{if !$var['sayclose']}-->
+            <span class="ps-touch-label">{lang dsu_paulsign:mb_mode1}</span>
             <div class="ps-touch-modes">
-              <label><input type="radio" name="qdmode" value="1" checked="checked" onclick="document.getElementById('ps-touch-mode-1').style.display='block';document.getElementById('ps-touch-mode-2').style.display='none';" />{lang dsu_paulsign:mb_mode2}</label>
-              <!--{if $var['ksopen']}--><label><input type="radio" name="qdmode" value="2" onclick="document.getElementById('ps-touch-mode-1').style.display='none';document.getElementById('ps-touch-mode-2').style.display='block';" />{lang dsu_paulsign:mb_mode3}</label><!--{/if}-->
-              <!--{if $var['todaysayxt']}--><label><input type="radio" name="qdmode" value="3" onclick="document.getElementById('ps-touch-mode-1').style.display='none';document.getElementById('ps-touch-mode-2').style.display='none';" />{lang dsu_paulsign:noq}</label><!--{/if}-->
+              <label class="ps-touch-mode"><input type="radio" name="qdmode" value="1" checked="checked" onclick="psSignMode(1);" /><span>{lang dsu_paulsign:mb_mode2}</span></label>
+              <!--{if $var['ksopen']}--><label class="ps-touch-mode"><input type="radio" name="qdmode" value="2" onclick="psSignMode(2);" /><span>{lang dsu_paulsign:mb_mode3}</span></label><!--{/if}-->
+              <!--{if $var['todaysayxt']}--><label class="ps-touch-mode"><input type="radio" name="qdmode" value="3" onclick="psSignMode(3);" /><span>{lang dsu_paulsign:noq}</span></label><!--{/if}-->
             </div>
-            <label id="ps-touch-mode-1" class="ps-touch-field">
-              <strong>{lang dsu_paulsign:mb_zxs}</strong>
-              <input type="text" name="todaysay" maxlength="100" />
-            </label>
-            <label id="ps-touch-mode-2" class="ps-touch-field" style="display:none">
-              <strong>{lang dsu_paulsign:mb_fastreply}</strong>
-              <select name="fastreply">
-                <!--{loop $fastreplytexts $key $value}-->
-                  <option value="{$key}"><!--{echo dhtmlspecialchars($value)}--></option>
-                <!--{/loop}-->
+            <div id="ps-touch-mode-1" class="ps-touch-field">
+              <textarea name="todaysay" maxlength="100" placeholder="{lang dsu_paulsign:mb_xztxtodaysay}"></textarea>
+              <small class="ps-touch-help">{lang dsu_paulsign:mb_xzzs}</small>
+            </div>
+            <div id="ps-touch-mode-2" class="ps-touch-field" style="display:none">
+              <select name="fastreply" aria-label="{lang dsu_paulsign:mb_fastreply}">
+                <!--{loop $fastreplytexts $key $value}--><option value="{$key}"><!--{echo dhtmlspecialchars($value)}--></option><!--{/loop}-->
               </select>
-            </label>
+            </div>
           <!--{/if}-->
           <button class="ps-touch-submit" type="submit">{lang dsu_paulsign:encore_02}</button>
         </form>
       <!--{elseif $qiandaodb['time'] < $tdtime}-->
-        <p class="ps-touch-note">{lang dsu_paulsign:mb_tips1}{$var[stime]}{lang dsu_paulsign:mb_tips2}{$var[ftime]}{lang dsu_paulsign:mb_tips3}</p>
+        <div class="ps-touch-done"><i>!</i><strong>{lang dsu_paulsign:mb_jryqe}</strong><p class="ps-touch-note">{lang dsu_paulsign:mb_tips1}{$var[stime]}{lang dsu_paulsign:mb_tips2}{$var[ftime]}{lang dsu_paulsign:mb_tips3}</p></div>
       <!--{else}-->
-        <p class="ps-touch-note">{lang dsu_paulsign:mb_jryqe}</p>
+        <div class="ps-touch-done"><i>&#10003;</i><strong>{lang dsu_paulsign:mb_jryqe}</strong><p class="ps-touch-note">{lang dsu_paulsign:mb_fwt6} {$qtime}</p></div>
       <!--{/if}-->
     </div>
-  </div>
+  </section>
 
-  <div class="ps-touch-section">
-    <h3 class="ps-touch-heading">{lang dsu_paulsign:mb_fwt}</h3>
-    <div class="ps-touch-body">
-      <!--{if $qiandaodb}-->
-        <div class="ps-touch-summary">
-          <div><span>{lang dsu_paulsign:mb_fwt1}</span><strong>$qiandaodb['days']</strong></div>
-          <div><span>{lang dsu_paulsign:mb_fwt3}</span><strong>$qiandaodb['mdays']</strong></div>
-          <div><span>{lang dsu_paulsign:mb_fwt6}</span><strong>$qtime</strong></div>
-          <div><span>{lang dsu_paulsign:mb_ph6}</span><strong>$q['if']</strong></div>
-        </div>
-      <!--{else}-->
-        <p class="ps-touch-note">{lang dsu_paulsign:mb_fwt7}</p>
-      <!--{/if}-->
-    </div>
-  </div>
+  <section class="ps-touch-card">
+    <h3 class="ps-touch-title"><span>{lang dsu_paulsign:mb_fwt}</span><small><!--{echo dhtmlspecialchars($_G['username'])}--></small></h3>
+    <!--{if $qiandaodb}-->
+      <div class="ps-touch-summary">
+        <div><span>{lang dsu_paulsign:mb_ph2}</span><strong>$qiandaodb['days'] {lang dsu_paulsign:mb_fwt2}</strong></div>
+        <div><span>{lang dsu_paulsign:mb_ph3}</span><strong>$qiandaodb['mdays'] {lang dsu_paulsign:mb_fwt2}</strong></div>
+        <!--{if $var['lastedop']}--><div><span>{lang dsu_paulsign:mb_fwt10}</span><strong>$qiandaodb['lasted'] {lang dsu_paulsign:mb_fwt2}</strong></div><!--{/if}-->
+        <div><span>{lang dsu_paulsign:mb_reward}</span><strong>$qiandaodb['reward'] {$_G['setting']['extcredits'][$var[nrcredit]]['unit']}</strong></div>
+        <div><span>{lang dsu_paulsign:mb_lastreward}</span><strong>$qiandaodb['lastreward'] {$_G['setting']['extcredits'][$var[nrcredit]]['unit']}</strong></div>
+        <div><span>{lang dsu_paulsign:mb_fwt6}</span><strong>$qtime</strong></div>
+      </div>
+      <!--{if $q['level']}--><div class="ps-touch-level">$q['level']</div><!--{/if}-->
+    <!--{else}-->
+      <div class="ps-touch-body"><p class="ps-touch-note">{lang dsu_paulsign:mb_fwt7}</p></div>
+    <!--{/if}-->
+  </section>
 
-  <div class="ps-touch-section">
-    <h3 class="ps-touch-heading">{lang dsu_paulsign:mb_ph}</h3>
+  <section class="ps-touch-card">
+    <h3 class="ps-touch-title"><span>{lang dsu_paulsign:mb_ph}</span></h3>
     <ul class="ps-touch-tabs">
-      <li class="{if $_GET['operation'] == ''}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&mobile=yes">{lang dsu_paulsign:mb_scqd}</a></li>
-      <li class="{if $_GET['operation'] == 'zong'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=zong&mobile=yes">{lang dsu_paulsign:mb_zts}</a></li>
-      <li class="{if $_GET['operation'] == 'month'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=month&mobile=yes">{lang dsu_paulsign:mb_yts}</a></li>
-      <!--{if $var['plopen']}--><li class="{if $_GET['operation'] == 'zdyhz'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=zdyhz&mobile=yes"><!--{echo dhtmlspecialchars($var['xxkxsz'])}--></a></li><!--{/if}-->
-      <!--{if $var['rewardlistopen']}--><li class="{if $_GET['operation'] == 'rewardlist'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=rewardlist&mobile=yes">{lang dsu_paulsign:mb_rewardlist}</a></li><!--{/if}-->
+      <li class="{if $_GET['operation'] == ''}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&mobile=2">{lang dsu_paulsign:mb_scqd}</a></li>
+      <li class="{if $_GET['operation'] == 'zong'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=zong&mobile=2">{lang dsu_paulsign:mb_zts}</a></li>
+      <li class="{if $_GET['operation'] == 'month'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=month&mobile=2">{lang dsu_paulsign:mb_yts}</a></li>
+      <!--{if $var['plopen']}--><li class="{if $_GET['operation'] == 'zdyhz'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=zdyhz&mobile=2"><!--{echo dhtmlspecialchars($var['xxkxsz'])}--></a></li><!--{/if}-->
+      <!--{if $var['rewardlistopen']}--><li class="{if $_GET['operation'] == 'rewardlist'}active{/if}"><a href="plugin.php?id=dsu_paulsign:sign&operation=rewardlist&mobile=2">{lang dsu_paulsign:mb_rewardlist}</a></li><!--{/if}-->
     </ul>
     <div class="ps-touch-body">
       <!--{if $_GET['operation'] == 'zdyhz' && $var['plopen']}-->
-        <div class="ps-touch-group-links">
-          <a class="{if !$_GET['qdgroupid']}active{/if}" href="plugin.php?id=dsu_paulsign:sign&operation=zdyhz&mobile=yes">{lang dsu_paulsign:xsqb}</a>
-          <!--{loop $mccs $mcc}-->
-            <a class="{if $_GET['qdgroupid'] == $mcc['groupid']}active{/if}" href="plugin.php?id=dsu_paulsign:sign&operation=zdyhz&qdgroupid=$mcc[groupid]&mobile=yes"><!--{echo dhtmlspecialchars($mcc['grouptitle'])}--></a>
-          <!--{/loop}-->
+        <div class="ps-touch-groups">
+          <a class="{if !$_GET['qdgroupid']}active{/if}" href="plugin.php?id=dsu_paulsign:sign&operation=zdyhz&mobile=2">{lang dsu_paulsign:xsqb}</a>
+          <!--{loop $mccs $mcc}--><a class="{if $_GET['qdgroupid'] == $mcc['groupid']}active{/if}" href="plugin.php?id=dsu_paulsign:sign&operation=zdyhz&qdgroupid=$mcc[groupid]&mobile=2"><!--{echo dhtmlspecialchars($mcc['grouptitle'])}--></a><!--{/loop}-->
         </div>
       <!--{/if}-->
       <!--{if $mrcs}-->
         <ol class="ps-touch-rank">
           <!--{loop $mrcs $rank $mrc}-->
             <li>
-              <span class="ps-touch-rank-index">{echo $rank + 1}</span>
+              <span class="ps-touch-rank-index">{echo $start_limit + $rank + 1}</span>
               <div class="ps-touch-rank-main">
-                <a href="home.php?mod=space&uid=$mrc[uid]&mobile=yes"><!--{echo dhtmlspecialchars($mrc['username'])}--></a>
-                <p><!--{echo dhtmlspecialchars($mrc['level'])}--><!--{if !$var['sayclose'] && $mrc['todaysay']}--> · <!--{echo dhtmlspecialchars($mrc['todaysay'])}--><!--{/if}--></p>
+                <div class="ps-touch-rank-name"><a href="home.php?mod=space&uid=$mrc[uid]&do=profile&mobile=2"><!--{echo dhtmlspecialchars($mrc['username'])}--></a><!--{if $mrc['qdxq']}--><img src="source/plugin/dsu_paulsign/img/emot/$mrc[qdxq].gif" alt="" /><!--{/if}--></div>
+                <p><!--{echo dhtmlspecialchars($mrc['level'])}--> &middot; $mrc['time'] &middot; {lang dsu_paulsign:mb_lastreward} $mrc['lastreward'] {$_G['setting']['extcredits'][$var[nrcredit]]['unit']}</p>
+                <!--{if !$var['sayclose'] && $mrc['todaysay']}--><p class="ps-touch-rank-say"><!--{echo dhtmlspecialchars($mrc['todaysay'])}--></p><!--{/if}-->
               </div>
               <div class="ps-touch-rank-value">
-                <!--{if $_GET['operation'] == 'rewardlist'}-->$mrc['reward']<!--{else}-->$mrc['days']<!--{/if}-->
-                <span><!--{if $_GET['operation'] == 'rewardlist'}-->{$_G['setting']['extcredits'][$var[nrcredit]]['unit']}<!--{else}-->{lang dsu_paulsign:mb_fwt2}<!--{/if}--></span>
+                <!--{if $_GET['operation'] == 'rewardlist'}-->$mrc['reward']<small>{lang dsu_paulsign:mb_reward}</small><!--{elseif $_GET['operation'] == 'month'}-->$mrc['mdays']<small>{lang dsu_paulsign:mb_ph3}</small><!--{else}-->$mrc['days']<small>{lang dsu_paulsign:mb_ph2}</small><!--{/if}-->
               </div>
             </li>
           <!--{/loop}-->
@@ -146,24 +174,50 @@
         <p class="ps-touch-note">{lang dsu_paulsign:mb_wrq}</p>
       <!--{/if}-->
     </div>
-  </div>
+  </section>
 
-  <!--{if $var['tjopen'] || $var['notice'] || $var['timeopen']}-->
-    <div class="ps-touch-section">
-      <h3 class="ps-touch-heading">{lang dsu_paulsign:mb_gg}</h3>
+  <!--{if $var['notice'] || $var['timeopen']}-->
+    <section class="ps-touch-card">
+      <h3 class="ps-touch-title"><span>{lang dsu_paulsign:mb_gg}</span></h3>
       <div class="ps-touch-body">
         <!--{if $var['notice']}--><p class="ps-touch-note"><!--{echo nl2br(dhtmlspecialchars($var['notice']))}--></p><!--{/if}-->
         <!--{if $var['timeopen']}--><p class="ps-touch-note">{lang dsu_paulsign:mb_tips1}{$var[stime]}{lang dsu_paulsign:mb_tips2}{$var[ftime]}{lang dsu_paulsign:mb_tips3}</p><!--{/if}-->
-        <!--{if $var['tjopen']}-->
-          <ul class="ps-touch-stats">
-            <li><span>{lang dsu_paulsign:tj_04}</span><b>$stats[todayq] {lang dsu_paulsign:tj_03}</b></li>
-            <li><span>{lang dsu_paulsign:tj_05}</span><b>$stats[yesterdayq] {lang dsu_paulsign:tj_03}</b></li>
-            <li><span>{lang dsu_paulsign:tj_02}</span><b>$stats[highestq] {lang dsu_paulsign:tj_03}</b></li>
-            <!--{loop $emottops $emottop}--><li><span><!--{echo dhtmlspecialchars($emottop['name'])}--></span><b>$emottop[count] {lang dsu_paulsign:tj_03}</b></li><!--{/loop}-->
-          </ul>
-        <!--{/if}-->
       </div>
-    </div>
+    </section>
+  <!--{/if}-->
+
+  <!--{if $var['tjopen']}-->
+    <section class="ps-touch-card">
+      <h3 class="ps-touch-title"><span>{lang dsu_paulsign:tj_01}</span></h3>
+      <div class="ps-touch-body">
+        <ul class="ps-touch-stats">
+          <li><span>{lang dsu_paulsign:tj_04}</span><b>$stats[todayq] {lang dsu_paulsign:tj_03}</b></li>
+          <li><span>{lang dsu_paulsign:tj_05}</span><b>$stats[yesterdayq] {lang dsu_paulsign:tj_03}</b></li>
+          <li><span>{lang dsu_paulsign:tj_02}</span><b>$stats[highestq] {lang dsu_paulsign:tj_03}</b></li>
+          <!--{loop $emottops $emottop}--><li><span><!--{echo dhtmlspecialchars($emottop['name'])}--></span><b>$emottop[count] {lang dsu_paulsign:tj_03}</b></li><!--{/loop}-->
+        </ul>
+        <details class="ps-touch-levels">
+          <summary>{lang dsu_paulsign:lvmsg}</summary>
+          <table>
+            <tr><td>[LV.1] $lv1name</td><td>&ge; 1 {lang dsu_paulsign:mb_fwt2}</td></tr><tr><td>[LV.2] $lv2name</td><td>&ge; 3 {lang dsu_paulsign:mb_fwt2}</td></tr>
+            <tr><td>[LV.3] $lv3name</td><td>&ge; 7 {lang dsu_paulsign:mb_fwt2}</td></tr><tr><td>[LV.4] $lv4name</td><td>&ge; 15 {lang dsu_paulsign:mb_fwt2}</td></tr>
+            <tr><td>[LV.5] $lv5name</td><td>&ge; 30 {lang dsu_paulsign:mb_fwt2}</td></tr><tr><td>[LV.6] $lv6name</td><td>&ge; 60 {lang dsu_paulsign:mb_fwt2}</td></tr>
+            <tr><td>[LV.7] $lv7name</td><td>&ge; 120 {lang dsu_paulsign:mb_fwt2}</td></tr><tr><td>[LV.8] $lv8name</td><td>&ge; 240 {lang dsu_paulsign:mb_fwt2}</td></tr>
+            <tr><td>[LV.9] $lv9name</td><td>&ge; 365 {lang dsu_paulsign:mb_fwt2}</td></tr><tr><td>[LV.10] $lv10name</td><td>&ge; 750 {lang dsu_paulsign:mb_fwt2}</td></tr>
+            <tr><td>[LV.Master] $lvmastername</td><td>&ge; 1500 {lang dsu_paulsign:mb_fwt2}</td></tr>
+          </table>
+        </details>
+      </div>
+    </section>
   <!--{/if}-->
 </div>
-<!--{subtemplate mobile/common/footer}-->
+
+<script type="text/javascript">
+function psSignMode(mode) {
+  var custom = document.getElementById('ps-touch-mode-1');
+  var quick = document.getElementById('ps-touch-mode-2');
+  if (custom) custom.style.display = mode === 1 ? 'block' : 'none';
+  if (quick) quick.style.display = mode === 2 ? 'block' : 'none';
+}
+</script>
+<!--{template common/footer}-->

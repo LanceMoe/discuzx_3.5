@@ -17,7 +17,8 @@ class mobileplugin_dsu_paulsign
 {
   function dsu_signtz()
   {
-    dheader('Location: plugin.php?id=dsu_paulsign:sign&mobile=yes');
+    $mobile = defined('IN_MOBILE') && IN_MOBILE == 2 ? '2' : 'yes';
+    dheader('Location: plugin.php?id=dsu_paulsign:sign&mobile=' . $mobile);
   }
 
   function global_header_mobile()
@@ -78,5 +79,21 @@ class mobileplugin_dsu_paulsign
       }
     }
     //return '<a href="plugin.php?id=dsu_paulsign:sign">'.lang('plugin/dsu_paulsign', 'name').'</a>';
+  }
+}
+
+class mobileplugin_dsu_paulsign_home extends mobileplugin_dsu_paulsign
+{
+  function space_profile_nav_extra_mobile()
+  {
+    global $_G, $space;
+
+    $var = $_G['cache']['plugin']['dsu_paulsign'];
+    if (empty($_G['uid']) || empty($var['ifopen']) || empty($space['uid']) || (int)$space['uid'] !== (int)$_G['uid']) {
+      return '';
+    }
+
+    return '<li><a href="plugin.php?id=dsu_paulsign:sign&amp;mobile=2"><i class="dm-edit"></i>'
+      . lang('plugin/dsu_paulsign', 'name') . '</a></li>';
   }
 }

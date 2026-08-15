@@ -13,8 +13,8 @@
 			<item id="description"><![CDATA[本插件將在前台添加一個簽到面板，在這裡你可以進行簽到操作，以及查看簽到排行榜,還可以使用簽到自動回帖功能。]]></item>
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[dsu_paulsign/]]></item>
-			<item id="copyright"><![CDATA[Lance Moe]]></item>
-			<item id="version"><![CDATA[5.3]]></item>
+			<item id="copyright"><![CDATA[iYa.App]]></item>
+			<item id="version"><![CDATA[6.0]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[sign]]></item>
@@ -933,11 +933,11 @@
 				<item id="mb_fwt3"><![CDATA[您本月已累計簽到:]]></item>
 				<item id="mb_fwt4"><![CDATA[【]]></item>
 				<item id="mb_fwt5"><![CDATA[】]]></item>
-				<item id="mb_fwt6"><![CDATA[您上次簽到時間:]]></item>
+				<item id="mb_fwt6"><![CDATA[上次簽到時間]]></item>
 				<item id="mb_fwt7"><![CDATA[您從未簽到過，趕快簽到吧!]]></item>
 				<item id="mb_fwt8"><![CDATA[您目前獲得的總獎勵為:]]></item>
 				<item id="mb_fwt9"><![CDATA[ , 上次獲得的獎勵為:]]></item>
-				<item id="mb_fwt10"><![CDATA[ , 您已經連續簽到:]]></item>
+				<item id="mb_fwt10"><![CDATA[已連續簽到]]></item>
 				<item id="mb_jryqe"><![CDATA[您今天已經簽到過了或者簽到時間還未開始]]></item>
 				<item id="mb_xztxtodaysay"><![CDATA[填寫今日最想說]]></item>
 				<item id="mb_lastreward"><![CDATA[上次獎勵]]></item>
@@ -979,7 +979,7 @@
 <table class="tb tb2 " id="3" summary="3">
 
 <tr><th  class="partition">簽到前N名額外獎勵設置方法</th></tr>
-<tr><td class="tipsblock" s="1"><ul id="tipslis"><li>找到"前N額外獎勵項自定義"對應十行分別改為如下的格式</li><li>第1名的額外獎勵積分代號|第1名的額外獎勵積分值<br>
+<tr><td class="tipsblock" s="1"><ul id="tipslis"><li>找到"前N額外獎勵項自定義"對應十行分別改為如下的格式</li><li>第1名的額外獎勵積分代號|第1名的額外獎勵積分值<br>
 第2名的額外獎勵積分代號|第2名的額外獎勵積分值<br>
 第3名的額外獎勵積分代號|第3名的額外獎勵積分值<br>
 第4名的額外獎勵積分代號|第4名的額外獎勵積分值<br>
@@ -1009,7 +1009,7 @@
 <tr><td class="tipsblock" s="1"><ul id="tipslis"><li>作用是將點擊簽到按鈕簽到後的用戶重定向到當天或者指定的簽到帖的最後一樓[即所自動生成的該用戶的簽到記錄],方法如下:</li><li>到後台的簽到設置,將"是否簽到後跳轉到原簽到帖"打開後即可生效</li></ul></td></tr></table>
 <table class="tb tb2 " id="6" summary="6">
 <tr><th  class="partition">獎勵排行榜的功能介紹以及開啟方法</th></tr>
-<tr><td class="tipsblock" s="1"><ul id="tipslis"><li>開啟該功能後,簽到的排行榜選擇中將多出一個獎勵排行榜,列出論壇總獎勵的前十排行.,開啟方法如下:
+<tr><td class="tipsblock" s="1"><ul id="tipslis"><li>開啟該功能後,簽到的排行榜選擇中將多出一個獎勵排行榜,列出論壇總獎勵的前十排行.,開啟方法如下:
 </li><li>到後台的簽到設置,將"是否開啟獎勵排行榜"打開後即可生效</li></ul></td></tr></table>
 <table class="tb tb2 " id="7" summary="7">
 <tr><th  class="partition">簽到操作Ajax功能介紹以及使用方法</th></tr>

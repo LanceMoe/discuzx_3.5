@@ -24,6 +24,7 @@ $stats = C::t('#dsu_paulsign#dsu_paulsignset')->fetch('1');
 $lastmonth = dgmdate(C::t('#dsu_paulsign#dsu_paulsign')->getlasttime(), 'm', $var['tos']);
 $nowmonth = dgmdate($_G['timestamp'], 'm', $var['tos']);
 $emots = dsu_paulsign_emots($_G['setting']['paulsign_emot']);
+$mobileurl = defined('IN_MOBILE') ? (IN_MOBILE == 2 ? '&mobile=2' : '&mobile=yes') : '';
 if ($nowmonth != $lastmonth) {
   C::t('#dsu_paulsign#dsu_paulsign')->clearmdays();
 }
@@ -41,18 +42,18 @@ if ($_GET['operation'] == 'zong' || $_GET['operation'] == 'month' || $_GET['oper
     $num = C::t('#dsu_paulsign#dsu_paulsign')->getcount('mdays', '0', 'notin');
     $page = max(1, intval($_GET['page']));
     $start_limit = ($page - 1) * 10;
-    $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}");
+    $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}{$mobileurl}");
   } elseif ($_GET['operation'] == 'zdyhz' || $_GET['operation'] == 'rewardlist') {
   } elseif ($_GET['operation'] == '' && $var['qddesc']) {
     $num = C::t('#dsu_paulsign#dsu_paulsign')->getcount('time', $tdtime, '>=');
     $page = max(1, intval($_GET['page']));
     $start_limit = ($page - 1) * 10;
-    $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}");
+    $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}{$mobileurl}");
   } else {
     $num = C::t('#dsu_paulsign#dsu_paulsign')->getcount();
     $page = max(1, intval($_GET['page']));
     $start_limit = ($page - 1) * 10;
-    $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}");
+    $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}{$mobileurl}");
   }
   if ($_GET['operation'] == 'zong') {
     $list_type = 'q.days';
@@ -65,7 +66,7 @@ if ($_GET['operation'] == 'zong' || $_GET['operation'] == 'month' || $_GET['oper
       $num = C::t('#dsu_paulsign#dsu_paulsign')->getcount_customgroup(array($qdgroupid));
       $page = max(1, intval($_GET['page']));
       $start_limit = ($page - 1) * 10;
-      $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}", 0);
+      $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}&qdgroupid={$qdgroupid}{$mobileurl}", 0);
       $list_type = 'q.time';
       $list_ifgroup = '1';
       $list_gids = array($qdgroupid);
@@ -73,7 +74,7 @@ if ($_GET['operation'] == 'zong' || $_GET['operation'] == 'month' || $_GET['oper
       $num = C::t('#dsu_paulsign#dsu_paulsign')->getcount_customgroup($plgroups);
       $page = max(1, intval($_GET['page']));
       $start_limit = ($page - 1) * 10;
-      $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}", 0);
+      $multipage = multi($num, 10, $page, "plugin.php?id=dsu_paulsign:sign&operation={$_GET['operation']}{$mobileurl}", 0);
       $list_type = 'q.time';
       $list_ifgroup = '1';
       $list_gids = $plgroups;
@@ -103,7 +104,7 @@ if ($_GET['operation'] == 'zong' || $_GET['operation'] == 'month' || $_GET['oper
     } elseif ($mrc['days'] >= '365') {
       $mrc['level'] = "[LV.9]{$lv9name}";
     } elseif ($mrc['days'] >= '240') {
-      $mrc['level'] = "[LV.8]{$lv10name}";
+      $mrc['level'] = "[LV.8]{$lv8name}";
     } elseif ($mrc['days'] >= '120') {
       $mrc['level'] = "[LV.7]{$lv7name}";
     } elseif ($mrc['days'] >= '60') {
@@ -172,7 +173,7 @@ $q['if'] = $qiandaodb['time'] < $tdtime ? "<span class=gray>" . $lang['tdno'] . 
 $qtime = dgmdate($qiandaodb['time'], 'Y-m-d H:i');
 $navigation = $lang['name'];
 $navtitle = "$navigation";
-$signBuild = 'Ver 5.3 <br>&copy; <a href="https://www.iya.app/">iYa.App</a><br>';
+$signBuild = 'Ver 6.0 <br>&copy; <a href="https://www.iya.app/">iYa.App</a><br>';
 $signadd = 'https://www.iya.app/';
 if ($_G['inajax']) {
   include template('dsu_paulsign:ajaxsign');
