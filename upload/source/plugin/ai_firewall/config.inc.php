@@ -97,6 +97,7 @@ showsetting($ai_firewall_adminlang['exempt_staff'], 'config[exempt_staff]', $con
 showsetting($ai_firewall_adminlang['timeout'], 'config[timeout]', $config['timeout'], 'number', '', 0, '', 'min="2" max="60"');
 showsetting($ai_firewall_adminlang['max_chars'], 'config[max_chars]', $config['max_chars'], 'number', '', 0, '', 'min="500" max="50000"');
 showsetting($ai_firewall_adminlang['failure_mode'], array('config[failure_mode]', $failureOptions), $config['failure_mode'], 'select');
+showsetting($ai_firewall_adminlang['skip_passed_thread_logs'], 'config[skip_passed_thread_logs]', $config['skip_passed_thread_logs'], 'radio', '', 0, $ai_firewall_adminlang['skip_passed_thread_logs_comment']);
 showsetting($ai_firewall_adminlang['log_days'], 'config[log_days]', $config['log_days'], 'number', '', 0, '', 'min="1" max="3650"');
 $testButton = '<input type="submit" class="btn" name="testconfig" value="'.dhtmlspecialchars($ai_firewall_adminlang['save_test']).'" />';
 showsubmit('saveconfig', $ai_firewall_adminlang['save'], '', $testButton);

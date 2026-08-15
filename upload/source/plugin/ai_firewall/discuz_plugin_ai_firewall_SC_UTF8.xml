@@ -12,7 +12,7 @@
 			<item id="datatables"><![CDATA[ai_firewall_config,ai_firewall_log]]></item>
 			<item id="directory"><![CDATA[ai_firewall/]]></item>
 			<item id="copyright"><![CDATA[AI Firewall]]></item>
-			<item id="version"><![CDATA[1.0.0]]></item>
+			<item id="version"><![CDATA[1.1.0]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[ai_firewall]]></item>

@@ -22,6 +22,7 @@ class ai_firewall_config {
 			'timeout' => '8',
 			'max_chars' => '12000',
 			'failure_mode' => 'review',
+			'skip_passed_thread_logs' => '0',
 			'log_days' => '30',
 		);
 	}
@@ -50,7 +51,7 @@ class ai_firewall_config {
 		$config['api_key_encrypted'] = $config['api_key'];
 		$config['api_key'] = $config['api_key'] ? authcode($config['api_key'], 'DECODE', $_G['config']['security']['authkey']) : '';
 		$config['forum_ids'] = self::parse_forum_ids($config['forum_ids']);
-		foreach(array('enabled', 'check_threads', 'check_replies', 'exempt_staff') as $key) {
+		foreach(array('enabled', 'check_threads', 'check_replies', 'exempt_staff', 'skip_passed_thread_logs') as $key) {
 			$config[$key] = intval($config[$key]) ? 1 : 0;
 		}
 		$config['timeout'] = max(2, min(60, intval($config['timeout'])));
@@ -66,7 +67,7 @@ class ai_firewall_config {
 		$current = self::get();
 		$input = is_array($input) ? array_merge(self::defaults(), $input) : self::defaults();
 		$defaults = self::defaults();
-		foreach(array('enabled', 'base_url', 'model', 'prompt', 'check_threads', 'check_replies', 'exempt_staff', 'timeout', 'max_chars', 'failure_mode', 'log_days') as $key) {
+		foreach(array('enabled', 'base_url', 'model', 'prompt', 'check_threads', 'check_replies', 'exempt_staff', 'timeout', 'max_chars', 'failure_mode', 'skip_passed_thread_logs', 'log_days') as $key) {
 			if(!is_scalar($input[$key])) {
 				$input[$key] = $defaults[$key];
 			}
@@ -83,6 +84,7 @@ class ai_firewall_config {
 			'timeout' => (string)max(2, min(60, intval($input['timeout']))),
 			'max_chars' => (string)max(500, min(50000, intval($input['max_chars']))),
 			'failure_mode' => isset($input['failure_mode']) && $input['failure_mode'] === 'pass' ? 'pass' : 'review',
+			'skip_passed_thread_logs' => empty($input['skip_passed_thread_logs']) ? '0' : '1',
 			'log_days' => (string)max(1, min(3650, intval($input['log_days']))),
 		);
 		if(is_scalar($apiKey) && $apiKey !== '') {

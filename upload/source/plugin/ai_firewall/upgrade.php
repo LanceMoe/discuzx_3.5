@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS cdb_ai_firewall_log (
   `request_id` char(16) NOT NULL DEFAULT '',
   `uid` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `fid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `tid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0',
   `content_type` varchar(16) NOT NULL DEFAULT '',
   `decision` varchar(16) NOT NULL DEFAULT '',
   `reason` varchar(500) NOT NULL DEFAULT '',
@@ -28,12 +30,24 @@ CREATE TABLE IF NOT EXISTS cdb_ai_firewall_log (
   `created_at` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `created_at` (`created_at`),
+  KEY `post_id` (`tid`,`pid`),
   KEY `decision_created` (`decision`,`created_at`),
   KEY `uid_created` (`uid`,`created_at`)
 ) ENGINE=InnoDB;
 EOF;
 
 runquery($sql);
+
+$logTable = DB::table('ai_firewall_log');
+if(!DB::fetch_first("SHOW COLUMNS FROM $logTable LIKE 'tid'")) {
+	runquery("ALTER TABLE cdb_ai_firewall_log ADD `tid` mediumint(8) unsigned NOT NULL DEFAULT '0' AFTER `fid`");
+}
+if(!DB::fetch_first("SHOW COLUMNS FROM $logTable LIKE 'pid'")) {
+	runquery("ALTER TABLE cdb_ai_firewall_log ADD `pid` int(10) unsigned NOT NULL DEFAULT '0' AFTER `tid`");
+}
+if(!DB::fetch_first("SHOW INDEX FROM $logTable WHERE Key_name='post_id'")) {
+	runquery("ALTER TABLE cdb_ai_firewall_log ADD KEY `post_id` (`tid`,`pid`)");
+}
 require_once DISCUZ_ROOT.'./source/plugin/ai_firewall/lib/config.php';
 ai_firewall_config::install_defaults();
 $finish = TRUE;

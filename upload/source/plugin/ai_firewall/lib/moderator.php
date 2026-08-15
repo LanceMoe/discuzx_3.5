@@ -55,25 +55,29 @@ class ai_firewall_moderator {
 		}
 
 		$effectiveDecision = $decision === 'error' ? $this->config['failure_mode'] : $decision;
-		ai_firewall_logger::write(array(
-			'request_id' => $requestId,
-			'uid' => $_G['uid'],
-			'fid' => $forum['fid'],
-			'content_type' => $contentType,
-			'decision' => $decision,
-			'reason' => $reason,
-			'categories' => implode(',', $categories),
-			'confidence' => $confidence,
-			'http_status' => $response['http_status'],
-			'latency_ms' => $response['latency_ms'],
-			'content_hash' => $contentHash,
-			'error_code' => $errorCode,
-		), $this->config['log_days']);
+		$shouldLog = !($contentType === 'thread' && $decision === 'pass' && !empty($this->config['skip_passed_thread_logs']));
+		if($shouldLog) {
+			ai_firewall_logger::write(array(
+				'request_id' => $requestId,
+				'uid' => $_G['uid'],
+				'fid' => $forum['fid'],
+				'content_type' => $contentType,
+				'decision' => $decision,
+				'reason' => $reason,
+				'categories' => implode(',', $categories),
+				'confidence' => $confidence,
+				'http_status' => $response['http_status'],
+				'latency_ms' => $response['latency_ms'],
+				'content_hash' => $contentHash,
+				'error_code' => $errorCode,
+			), $this->config['log_days']);
+		}
 
 		return array(
 			'decision' => $effectiveDecision,
 			'original_decision' => $decision,
 			'error_code' => $errorCode,
+			'request_id' => $shouldLog ? $requestId : '',
 		);
 	}
 

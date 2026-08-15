@@ -8,6 +8,7 @@ require_once DISCUZ_ROOT.'./source/plugin/ai_firewall/lib/config.php';
 require_once DISCUZ_ROOT.'./source/plugin/ai_firewall/lib/moderator.php';
 
 class plugin_ai_firewall {
+	private static $pendingRequestId = '';
 
 	public function post() {
 		global $_G;
@@ -39,9 +40,34 @@ class plugin_ai_firewall {
 		}
 		$moderator = new ai_firewall_moderator($config);
 		$result = $moderator->review($contentType, $subject, $message, $_G['forum']);
+		self::$pendingRequestId = isset($result['request_id']) ? $result['request_id'] : '';
 		if($result['decision'] === 'review') {
 			$this->force_native_moderation($contentType);
 		}
+	}
+
+	public function post_message($param) {
+		global $_G;
+		if(self::$pendingRequestId === '' || empty($param['param']) || !is_array($param['param'])) {
+			return;
+		}
+		list($message, $url, $values) = array_pad($param['param'], 3, array());
+		if(!in_array($message, array('post_newthread_succeed', 'post_newthread_mod_succeed', 'post_reply_succeed', 'post_reply_mod_succeed'), true)) {
+			return;
+		}
+		$values = is_array($values) ? $values : array();
+		$tid = isset($values['tid']) ? intval($values['tid']) : 0;
+		$pid = isset($values['pid']) ? intval($values['pid']) : 0;
+		if(!$tid && preg_match('/(?:[?&]|&amp;)tid=(\d+)/', (string)$url, $match)) {
+			$tid = intval($match[1]);
+		}
+		if(!$pid && preg_match('/(?:[?&]|&amp;)pid=(\d+)/', (string)$url, $match)) {
+			$pid = intval($match[1]);
+		}
+		if($tid > 0) {
+			C::t('#ai_firewall#ai_firewall_log')->update_post_ids(self::$pendingRequestId, intval($_G['uid']), $tid, $pid);
+		}
+		self::$pendingRequestId = '';
 	}
 
 	private function is_submission() {

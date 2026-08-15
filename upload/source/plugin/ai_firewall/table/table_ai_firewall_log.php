@@ -33,6 +33,16 @@ class table_ai_firewall_log extends discuz_table {
 		return DB::delete($this->_table, '1');
 	}
 
+	public function update_post_ids($requestId, $uid, $tid, $pid) {
+		return DB::query('UPDATE %t SET tid=%d, pid=%d WHERE request_id=%s AND uid=%d', array(
+			$this->_table,
+			intval($tid),
+			intval($pid),
+			(string)$requestId,
+			intval($uid),
+		));
+	}
+
 	private function build_filter($decision, $contentType, $startTime) {
 		$where = array();
 		$params = array();

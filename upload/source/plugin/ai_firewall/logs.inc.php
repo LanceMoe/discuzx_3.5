@@ -61,21 +61,29 @@ showtablerow('', array('class="td25"', ''), array($ai_firewall_adminlang['decisi
 showtablefooter();
 showformfooter();
 showtableheader($ai_firewall_adminlang['logs_title']);
-showsubtitle(array('ID', $ai_firewall_adminlang['decision'], $ai_firewall_adminlang['content_type'], $ai_firewall_adminlang['user'], $ai_firewall_adminlang['forum'], $ai_firewall_adminlang['reason'], $ai_firewall_adminlang['http'], $ai_firewall_adminlang['latency'], $ai_firewall_adminlang['error_code'], $ai_firewall_adminlang['time']));
+showsubtitle(array('ID', $ai_firewall_adminlang['decision'], $ai_firewall_adminlang['content_type'], $ai_firewall_adminlang['user'], $ai_firewall_adminlang['forum'], $ai_firewall_adminlang['post'], $ai_firewall_adminlang['reason'], $ai_firewall_adminlang['http'], $ai_firewall_adminlang['latency'], $ai_firewall_adminlang['error_code'], $ai_firewall_adminlang['time']));
 if(!$logs) {
-	showtablerow('', 'colspan="10"', $ai_firewall_adminlang['no_logs']);
+	showtablerow('', 'colspan="11"', $ai_firewall_adminlang['no_logs']);
 } else {
 	foreach($logs as $row) {
 		$username = isset($users[$row['uid']]['username']) ? $users[$row['uid']]['username'] : ($row['uid'] ? 'UID '.$row['uid'] : '-');
 		$forumName = isset($forums[$row['fid']]['name']) ? $forums[$row['fid']]['name'] : ($row['fid'] ? 'FID '.$row['fid'] : '-');
 		$reason = dhtmlspecialchars($row['reason']);
 		if($row['categories']) $reason .= ($reason ? '<br />' : '').'<span class="lightfont">'.dhtmlspecialchars($row['categories']).'</span>';
-		showtablerow('', array('class="td25"', '', '', '', '', '', '', '', '', ''), array(
+		$postLink = '-';
+		if(!empty($row['tid'])) {
+			$postUrl = !empty($row['pid'])
+				? 'forum.php?mod=redirect&goto=findpost&ptid='.intval($row['tid']).'&pid='.intval($row['pid'])
+				: 'forum.php?mod=viewthread&tid='.intval($row['tid']);
+			$postLink = '<a href="'.$postUrl.'" target="_blank" rel="noopener noreferrer">'.dhtmlspecialchars($ai_firewall_adminlang['view_post']).'</a>';
+		}
+		showtablerow('', array('class="td25"', '', '', '', '', '', '', '', '', '', ''), array(
 			intval($row['id']),
 			dhtmlspecialchars($row['decision']),
 			dhtmlspecialchars($row['content_type']),
 			dhtmlspecialchars($username),
 			dhtmlspecialchars($forumName),
+			$postLink,
 			$reason ?: '-',
 			intval($row['http_status']),
 			intval($row['latency_ms']).' ms',
