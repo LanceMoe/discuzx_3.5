@@ -5,7 +5,7 @@ if(!defined('IN_DISCUZ')) {
 }
 
 $ai_firewall_adminlang = array(
-	'config_title' => 'AI 防火墙配置',
+	'config_title' => 'AI 防水墙配置',
 	'enabled' => '启用审核',
 	'enabled_comment' => '插件总开关。首次配置并测试成功前建议保持关闭。',
 	'base_url' => 'Base URL',
@@ -14,8 +14,10 @@ $ai_firewall_adminlang = array(
 	'api_key_set' => '已配置。留空保存将保留原值。',
 	'api_key_empty' => '尚未配置。',
 	'model' => '模型',
+	'thinking_enabled' => 'Thinking 模式',
+	'thinking_enabled_comment' => '默认开启。开启时发送 reasoning_effort=medium，停用时发送 reasoning_effort=none。模型和兼容接口必须支持对应参数值。',
 	'prompt' => '审核 Prompt',
-	'structured_output' => 'Structured Output',
+	'structured_output' => '使用结构化输出',
 	'structured_output_comment' => '默认开启。使用严格 JSON Schema 限定输出，并让模型先生成理由、最后生成判定；不支持 response_format.json_schema 的兼容接口可关闭。',
 	'check_threads' => '审核新主题',
 	'check_replies' => '审核新回复',
@@ -32,7 +34,7 @@ $ai_firewall_adminlang = array(
 	'log_days' => '日志保留天数',
 	'save' => '保存设置',
 	'save_test' => '保存并测试连接',
-	'logs_title' => 'AI 防火墙审核日志',
+	'logs_title' => 'AI 防水墙审核日志',
 	'log_privacy' => '日志不保存完整帖子正文或 API Key。decision=error 表示接口或响应异常，其最终行为由故障策略决定。',
 	'filter' => '筛选',
 	'all' => '全部',

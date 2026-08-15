@@ -89,6 +89,7 @@ showsetting($ai_firewall_adminlang['enabled'], 'config[enabled]', $config['enabl
 showsetting($ai_firewall_adminlang['base_url'], 'config[base_url]', $config['base_url'], 'text', '', 0, $ai_firewall_adminlang['base_url_comment'], 'style="width:420px"');
 showsetting($ai_firewall_adminlang['api_key'], 'api_key', '', 'password', '', 0, $config['api_key'] ? $ai_firewall_adminlang['api_key_set'] : $ai_firewall_adminlang['api_key_empty'], 'autocomplete="new-password" style="width:420px"');
 showsetting($ai_firewall_adminlang['model'], 'config[model]', $config['model'], 'text', '', 0, '', 'style="width:420px"');
+showsetting($ai_firewall_adminlang['thinking_enabled'], 'config[thinking_enabled]', $config['thinking_enabled'], 'radio', '', 0, $ai_firewall_adminlang['thinking_enabled_comment']);
 showsetting($ai_firewall_adminlang['prompt'], 'config[prompt]', $config['prompt'], 'textarea', '', 0, '', 'style="width:620px;height:180px"');
 showsetting($ai_firewall_adminlang['structured_output'], 'config[structured_output]', $config['structured_output'], 'radio', '', 0, $ai_firewall_adminlang['structured_output_comment']);
 showsetting($ai_firewall_adminlang['check_threads'], 'config[check_threads]', $config['check_threads'], 'radio');

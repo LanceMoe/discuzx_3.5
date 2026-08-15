@@ -33,6 +33,7 @@ class ai_firewall_client {
 
 		$payload = array(
 			'model' => $this->config['model'],
+			'reasoning_effort' => !empty($this->config['thinking_enabled']) ? 'medium' : 'none',
 			'messages' => array(
 				array(
 					'role' => 'system',

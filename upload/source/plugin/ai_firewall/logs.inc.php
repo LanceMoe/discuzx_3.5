@@ -62,14 +62,23 @@ showtablefooter();
 showformfooter();
 showtableheader($ai_firewall_adminlang['logs_title']);
 showsubtitle(array('ID', $ai_firewall_adminlang['decision'], $ai_firewall_adminlang['content_type'], $ai_firewall_adminlang['user'], $ai_firewall_adminlang['forum'], $ai_firewall_adminlang['post'], $ai_firewall_adminlang['reason'], $ai_firewall_adminlang['http'], $ai_firewall_adminlang['latency'], $ai_firewall_adminlang['error_code'], $ai_firewall_adminlang['time']));
+$decisionColors = array('pass' => '#008000', 'review' => '#d60000');
 if(!$logs) {
 	showtablerow('', 'colspan="11"', $ai_firewall_adminlang['no_logs']);
 } else {
 	foreach($logs as $row) {
 		$username = isset($users[$row['uid']]['username']) ? $users[$row['uid']]['username'] : ($row['uid'] ? 'UID '.$row['uid'] : '-');
+		$userLink = dhtmlspecialchars($username);
+		if(!empty($row['uid'])) {
+			$userLink = '<a href="home.php?mod=space&uid='.intval($row['uid']).'&do=profile" target="_blank" rel="noopener noreferrer">'.$userLink.'</a>';
+		}
 		$forumName = isset($forums[$row['fid']]['name']) ? $forums[$row['fid']]['name'] : ($row['fid'] ? 'FID '.$row['fid'] : '-');
 		$reason = dhtmlspecialchars($row['reason']);
 		if($row['categories']) $reason .= ($reason ? '<br />' : '').'<span class="lightfont">'.dhtmlspecialchars($row['categories']).'</span>';
+		$decisionText = dhtmlspecialchars($row['decision']);
+		if(isset($decisionColors[$row['decision']])) {
+			$decisionText = '<span style="color:'.$decisionColors[$row['decision']].'">'.$decisionText.'</span>';
+		}
 		$postLink = '-';
 		if(!empty($row['tid'])) {
 			$postUrl = !empty($row['pid'])
@@ -79,9 +88,9 @@ if(!$logs) {
 		}
 		showtablerow('', array('class="td25"', '', '', '', '', '', '', '', '', '', ''), array(
 			intval($row['id']),
-			dhtmlspecialchars($row['decision']),
+			$decisionText,
 			dhtmlspecialchars($row['content_type']),
-			dhtmlspecialchars($username),
+			$userLink,
 			dhtmlspecialchars($forumName),
 			$postLink,
 			$reason ?: '-',

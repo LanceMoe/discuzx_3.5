@@ -6,13 +6,13 @@
 		<item id="plugin">
 			<item id="available"><![CDATA[0]]></item>
 			<item id="adminid"><![CDATA[1]]></item>
-			<item id="name"><![CDATA[AI 防火墙]]></item>
+			<item id="name"><![CDATA[AI 防水墙]]></item>
 			<item id="identifier"><![CDATA[ai_firewall]]></item>
-			<item id="description"><![CDATA[使用 OpenAI Chat Completions 兼容接口审核新主题与回复，风险内容进入 Discuz 原生人工审核队列。]]></item>
+			<item id="description"><![CDATA[使用 OpenAI Chat Completions 兼容接口审核新主题与回复，防范恶意灌水等风险内容，并将其送入 Discuz 原生人工审核队列。]]></item>
 			<item id="datatables"><![CDATA[ai_firewall_config,ai_firewall_log]]></item>
 			<item id="directory"><![CDATA[ai_firewall/]]></item>
-			<item id="copyright"><![CDATA[AI Firewall]]></item>
-			<item id="version"><![CDATA[1.2.1]]></item>
+			<item id="copyright"><![CDATA[iYa.App]]></item>
+			<item id="version"><![CDATA[1.3.0]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[ai_firewall]]></item>
@@ -58,7 +58,7 @@
 		<item id="language">
 			<item id="scriptlang">
 				<item id="config_invalid"><![CDATA[配置无效：<br />{errors}]]></item>
-				<item id="config_saved"><![CDATA[AI 防火墙设置已保存。]]></item>
+				<item id="config_saved"><![CDATA[AI 防水墙设置已保存。]]></item>
 				<item id="test_failed"><![CDATA[接口连接测试失败。错误码：{error}，HTTP：{http}，耗时：{latency} ms。]]></item>
 				<item id="test_invalid_response"><![CDATA[接口可以连接，但模型未返回符合约定的审核 JSON。HTTP：{http}，耗时：{latency} ms。]]></item>
 				<item id="test_succeed"><![CDATA[接口连接及响应格式测试成功。决策：{decision}，HTTP：{http}，耗时：{latency} ms。]]></item>
