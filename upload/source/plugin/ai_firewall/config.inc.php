@@ -90,6 +90,7 @@ showsetting($ai_firewall_adminlang['base_url'], 'config[base_url]', $config['bas
 showsetting($ai_firewall_adminlang['api_key'], 'api_key', '', 'password', '', 0, $config['api_key'] ? $ai_firewall_adminlang['api_key_set'] : $ai_firewall_adminlang['api_key_empty'], 'autocomplete="new-password" style="width:420px"');
 showsetting($ai_firewall_adminlang['model'], 'config[model]', $config['model'], 'text', '', 0, '', 'style="width:420px"');
 showsetting($ai_firewall_adminlang['prompt'], 'config[prompt]', $config['prompt'], 'textarea', '', 0, '', 'style="width:620px;height:180px"');
+showsetting($ai_firewall_adminlang['structured_output'], 'config[structured_output]', $config['structured_output'], 'radio', '', 0, $ai_firewall_adminlang['structured_output_comment']);
 showsetting($ai_firewall_adminlang['check_threads'], 'config[check_threads]', $config['check_threads'], 'radio');
 showsetting($ai_firewall_adminlang['check_replies'], 'config[check_replies]', $config['check_replies'], 'radio');
 showsetting($ai_firewall_adminlang['forum_ids'], 'config[forum_ids]', implode(',', $config['forum_ids']), 'text', '', 0, $ai_firewall_adminlang['forum_ids_comment'], 'style="width:420px"');

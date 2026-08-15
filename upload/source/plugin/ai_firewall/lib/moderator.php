@@ -90,23 +90,25 @@ class ai_firewall_moderator {
 			$content = trim($content);
 		}
 		$data = json_decode($content, true);
-		if(!is_array($data) || !isset($data['decision']) || !in_array($data['decision'], array('pass', 'review'), true)) {
+		$requiredKeys = array('reason', 'categories', 'confidence', 'decision');
+		if(!is_array($data) || array_keys($data) !== $requiredKeys || !is_string($data['reason']) || trim($data['reason']) === '' || !is_array($data['categories']) || count($data['categories']) > 10 || !is_numeric($data['confidence']) || floatval($data['confidence']) < 0 || floatval($data['confidence']) > 1 || !is_string($data['decision']) || !in_array($data['decision'], array('pass', 'review'), true)) {
 			return array('valid' => false);
 		}
 		$categories = array();
-		if(isset($data['categories']) && is_array($data['categories'])) {
-			foreach($data['categories'] as $category) {
-				if(is_scalar($category) && trim((string)$category) !== '') {
-					$categories[] = cutstr(trim((string)$category), 50, '');
-				}
+		foreach($data['categories'] as $category) {
+			if(!is_string($category)) {
+				return array('valid' => false);
+			}
+			if(trim($category) !== '') {
+				$categories[] = cutstr(trim($category), 50, '');
 			}
 		}
 		return array(
 			'valid' => true,
 			'decision' => $data['decision'],
-			'reason' => isset($data['reason']) && is_scalar($data['reason']) ? cutstr(trim((string)$data['reason']), 500, '') : '',
+			'reason' => cutstr(trim($data['reason']), 500, ''),
 			'categories' => array_slice(array_unique($categories), 0, 10),
-			'confidence' => isset($data['confidence']) && is_numeric($data['confidence']) ? max(0, min(1, floatval($data['confidence']))) : 0,
+			'confidence' => floatval($data['confidence']),
 		);
 	}
 

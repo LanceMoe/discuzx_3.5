@@ -15,6 +15,7 @@ class ai_firewall_config {
 			'api_key' => '',
 			'model' => 'gpt-5-mini',
 			'prompt' => '你是论坛内容安全审核员。根据站点规则判断内容是否可以直接公开。广告引流、诈骗、违法内容、色情、仇恨骚扰、恶意灌水、泄露隐私或明显破坏社区秩序的内容应进入人工审核；正常讨论应通过。存在疑点时选择 review。',
+			'structured_output' => '1',
 			'check_threads' => '1',
 			'check_replies' => '1',
 			'forum_ids' => '',
@@ -51,7 +52,7 @@ class ai_firewall_config {
 		$config['api_key_encrypted'] = $config['api_key'];
 		$config['api_key'] = $config['api_key'] ? authcode($config['api_key'], 'DECODE', $_G['config']['security']['authkey']) : '';
 		$config['forum_ids'] = self::parse_forum_ids($config['forum_ids']);
-		foreach(array('enabled', 'check_threads', 'check_replies', 'exempt_staff', 'skip_passed_thread_logs') as $key) {
+		foreach(array('enabled', 'structured_output', 'check_threads', 'check_replies', 'exempt_staff', 'skip_passed_thread_logs') as $key) {
 			$config[$key] = intval($config[$key]) ? 1 : 0;
 		}
 		$config['timeout'] = max(2, min(60, intval($config['timeout'])));
@@ -67,7 +68,7 @@ class ai_firewall_config {
 		$current = self::get();
 		$input = is_array($input) ? array_merge(self::defaults(), $input) : self::defaults();
 		$defaults = self::defaults();
-		foreach(array('enabled', 'base_url', 'model', 'prompt', 'check_threads', 'check_replies', 'exempt_staff', 'timeout', 'max_chars', 'failure_mode', 'skip_passed_thread_logs', 'log_days') as $key) {
+		foreach(array('enabled', 'base_url', 'model', 'prompt', 'structured_output', 'check_threads', 'check_replies', 'exempt_staff', 'timeout', 'max_chars', 'failure_mode', 'skip_passed_thread_logs', 'log_days') as $key) {
 			if(!is_scalar($input[$key])) {
 				$input[$key] = $defaults[$key];
 			}
@@ -77,6 +78,7 @@ class ai_firewall_config {
 			'base_url' => rtrim(trim((string)$input['base_url']), '/'),
 			'model' => trim((string)$input['model']),
 			'prompt' => trim((string)$input['prompt']),
+			'structured_output' => empty($input['structured_output']) ? '0' : '1',
 			'check_threads' => empty($input['check_threads']) ? '0' : '1',
 			'check_replies' => empty($input['check_replies']) ? '0' : '1',
 			'forum_ids' => implode(',', self::parse_forum_ids(isset($input['forum_ids']) ? $input['forum_ids'] : array())),
