@@ -91,7 +91,10 @@ class ai_firewall_moderator {
 		}
 		$data = json_decode($content, true);
 		$requiredKeys = array('reason', 'categories', 'confidence', 'decision');
-		if(!is_array($data) || array_keys($data) !== $requiredKeys || !is_string($data['reason']) || trim($data['reason']) === '' || !is_array($data['categories']) || count($data['categories']) > 10 || !is_numeric($data['confidence']) || floatval($data['confidence']) < 0 || floatval($data['confidence']) > 1 || !is_string($data['decision']) || !in_array($data['decision'], array('pass', 'review'), true)) {
+		if(!is_array($data) || count($data) !== count($requiredKeys) || array_diff($requiredKeys, array_keys($data))) {
+			return array('valid' => false);
+		}
+		if(!is_string($data['reason']) || trim($data['reason']) === '' || !is_array($data['categories']) || count($data['categories']) > 10 || !is_numeric($data['confidence']) || floatval($data['confidence']) < 0 || floatval($data['confidence']) > 1 || !is_string($data['decision']) || !in_array($data['decision'], array('pass', 'review'), true)) {
 			return array('valid' => false);
 		}
 		$categories = array();
