@@ -423,7 +423,12 @@ class plugin_dsu_paulsign_forum extends plugin_dsu_paulsign
       if ($days[$postlist[$key]['authorid']]['days']) {
         $lastedecho = $lastedop ? '<p>' . lang('plugin/dsu_paulsign', 'classn_12') . ': ' . $days[$postlist[$key]['authorid']]['lasted'] . ' ' . lang('plugin/dsu_paulsign', 'classn_02') . '</p>' : '';
         if ($open == '2') {
-          $echoonce = '<div class="qdsmile"><div><center>' . lang('plugin/dsu_paulsign', 'ta_mind') . '</center><table><tr><th><img src="source/plugin/dsu_paulsign/img/emot/' . dhtmlspecialchars($days[$postlist[$key]['authorid']]['qdxq']) . '.gif"></th><th><font size="5px">' . dhtmlspecialchars($days[$postlist[$key]['authorid']]['qdxqzw']) . '</font><br>' . dhtmlspecialchars($days[$postlist[$key]['authorid']]['time']) . '</th></tr></table></div></div>';
+          $echoonce = '<div class="qdsmile">'
+            . '<div class="qdsmile-title"><i></i>' . lang('plugin/dsu_paulsign', 'ta_mind') . '</div>'
+            . '<div class="qdsmile-body">'
+            . '<span class="qdsmile-emot"><img src="source/plugin/dsu_paulsign/img/emot/' . dhtmlspecialchars($days[$postlist[$key]['authorid']]['qdxq']) . '.gif" alt=""></span>'
+            . '<span class="qdsmile-info"><strong>' . dhtmlspecialchars($days[$postlist[$key]['authorid']]['qdxqzw']) . '</strong><span class="qdsmile-time">' . $days[$postlist[$key]['authorid']]['time'] . '</span></span>'
+            . '</div></div>';
         }
         $echoonce .= '<p>' . lang('plugin/dsu_paulsign', 'classn_01') . ': ' . $days[$postlist[$key]['authorid']]['days'] . ' ' . lang('plugin/dsu_paulsign', 'classn_02') . '</p>' . $lastedecho . '<p>' . $days[$postlist[$key]['authorid']]['level'] . '</p>';
       } else {

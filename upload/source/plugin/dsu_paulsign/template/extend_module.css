@@ -1,19 +1,91 @@
 /** forum::viewthread,group::viewthread **/
 .qdsmile {
-    padding: 3px;
-    margin-left: 7px;
-    margin-right: 7px;
-    list-style: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 10px 7px;
+    color: #666;
+    background: #FFF;
+    border: 1px solid #E7EBF0;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
 }
 
-.qdsmile li {
-    padding: 5px .4em;
-    background: #F7FAFF;
-    border: 2px dashed #D1D8D8;
+.qdsmile-title {
+    overflow: hidden;
+    padding: 7px 9px;
+    color: #7A8490;
+    background: #FAFBFC;
+    border-bottom: 1px solid #EEF1F4;
+    font-size: 12px;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.qdsmile li img {
-    margin-bottom: 5px;
+.qdsmile-title i {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin: -2px 6px 0 0;
+    background: #4C9BE8;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.qdsmile-body {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 10px 9px;
+}
+
+.qdsmile-emot {
+    display: flex;
+    flex: 0 0 40px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 9px;
+    background: #F3F8FD;
+    border-radius: 50%;
+}
+
+.qdsmile-emot img {
+    display: block;
+    max-width: 28px;
+    max-height: 28px;
+}
+
+.qdsmile-info {
+    display: block;
+    overflow: hidden;
+    min-width: 0;
+    line-height: 1.5;
+}
+
+.qdsmile-info strong {
+    display: block;
+    overflow: hidden;
+    color: #3F4A56;
+    font-size: 14px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.qdsmile-time {
+    display: block;
+    overflow: hidden;
+    margin-top: 2px;
+    color: #A0A8B1;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.qdsmile-time span {
+    color: inherit;
 }
 
 /** end **/
