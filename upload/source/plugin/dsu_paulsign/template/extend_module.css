@@ -76,12 +76,12 @@
 
 .qdsmile-time {
     display: block;
-    overflow: hidden;
     margin-top: 2px;
     color: #A0A8B1;
     font-size: 12px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 .qdsmile-time span {

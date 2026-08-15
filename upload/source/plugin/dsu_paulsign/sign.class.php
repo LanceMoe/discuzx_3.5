@@ -388,7 +388,7 @@ class plugin_dsu_paulsign_forum extends plugin_dsu_paulsign
         $mrc['qdxq'] = $emotkeys ? end($emotkeys) : '';
       }
       $days[$mrc['uid']]['qdxq'] = $mrc['qdxq'];
-      $days[$mrc['uid']]['time'] = dgmdate($mrc['time'], 'u');
+      $days[$mrc['uid']]['time'] = str_replace('&nbsp;', ' ', dgmdate($mrc['time'], 'u'));
       if ($lastedop) {
         $days[$mrc['uid']]['lasted'] = $mrc['lasted'];
       }
